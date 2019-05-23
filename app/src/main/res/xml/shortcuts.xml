@@ -1,0 +1,35 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="compose"
+        android:enabled="true"
+        android:icon="@drawable/compose"
+        android:shortcutShortLabel="@string/compose_shortcut_short_label1"
+        android:shortcutLongLabel="@string/compose_shortcut_long_label1"
+        android:shortcutDisabledMessage="@string/compose_disabled_message1">
+        <intent
+            android:action="android.intent.action.VIEW"
+
+            android:targetPackage="summit.baseproject"
+            android:targetClass="summit.baseproject.view.test.webview.WebviewActivity"
+
+            android:data="myapp://webview"/>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <!-- Specify more shortcuts here. -->
+
+    <shortcut
+        android:shortcutId="sap"
+        android:enabled="true"
+        android:icon="@drawable/sap"
+        android:shortcutShortLabel="@string/sap_shortcut_short_label1"
+        android:shortcutLongLabel="@string/sap_shortcut_long_label1"
+        android:shortcutDisabledMessage="@string/sap_disabled_message1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="summit.baseproject"
+            android:targetClass="summit.baseproject.view.test.TestActivity"
+
+            android:data="myapp://test"/>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>

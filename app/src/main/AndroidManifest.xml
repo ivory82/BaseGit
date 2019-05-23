@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="summit.baseproject">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+    <application
+        android:targetPackage="summit.baseproject"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:theme="@style/Base.AppTheme"
+        android:name=".BaseApplication">
+
+        <activity android:name=".view.intro.IntroActivity"
+            android:theme="@style/IntroTheme"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts" />
+        </activity>
+
+        <activity android:name=".view.main.MainActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".view.test.TestActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="example.page.link"
+                    android:scheme="https"/>
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="example.com/link" android:scheme="http"/>
+                <data android:host="example.com/link" android:scheme="https"/>
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".view.test.motion.MotionActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".view.test.popup.PopupActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".view.test.image.ImageUseActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".view.test.permission.PermissionActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".view.test.location.LocationActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait"/>
+        <activity android:name=".view.test.db.RealmActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.test.network.RetrofitActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity android:name="summit.baseproject.view.test.webview.WebviewActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="summit.baseproject.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+        <!--위젯-->
+        <receiver
+            android:name=".widget.WidgetProvider"
+            android:label="위젯 테스트 (일반)" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_basic" />
+        </receiver>
+
+        <receiver android:name=".receiver.PowerConnectionReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

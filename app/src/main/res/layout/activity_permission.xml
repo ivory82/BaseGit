@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/lyRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.test.TestActivity">
+
+        <!-- Top bar -->
+        <include
+            layout="@layout/toolbar_top"
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/lyMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnChk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="퍼미션 체크"
+                style="@style/Widget.AppCompat.Button.Colored"/>
+
+            <Button
+                android:id="@+id/btnReq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="퍼미션 요청"
+                style="@style/Widget.AppCompat.Button.Colored"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

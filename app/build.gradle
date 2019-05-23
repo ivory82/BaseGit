@@ -1,0 +1,120 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    defaultConfig {
+        applicationId "summit.baseproject"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    realm {
+        syncEnabled = true;
+    }
+
+    //lambda
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+    //coss
+    //coss10293847
+
+    // APK splitting
+    //Realm 파일 사이즈를 줄이기 위한 APK분할, 이 방법을 적용하려면, 구글플레이스토어에서 다운되는 앱이여야함.
+    //참조 URL :https://medium.com/mindorks/when-using-realm-for-android-makes-your-app-heavy-93c56c0d1c98
+//    splits {
+//        abi {
+//            // Enable APK splitting wrt architecture
+//            enable true
+//
+//            // Reset the architectures for which you need to build the APKs for
+//            reset()
+//
+//            // Include the architectures for which Gradle is building APKs
+//            include 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+//
+//            // Set this to false if you don't want an APK that has native code for all architectures
+//            universalApk false
+//        }
+//    }
+//
+//    // Assign codes to each architecture
+//    project.ext.versionCodes = ['x86': 0, 'x86_64': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3]
+//
+//    // Add the architecture-specific codes above to base version code, i.e. the version code specified in the defaultConfig{} block
+//    // Example: 2000 is the base version code -> 2000 (x86), 2001 (x86_64), 2002 (armeabi-v7a) & 2003 (arm64-v8a) would be the version codes for the generated APK files
+//    android.applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            output.versionCodeOverride = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) * 1 + android.defaultConfig.versionCode
+//        }
+//    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //noinspection GradleCompatible
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+//    implementation 'com.android.support:animated-vector-drawable:27.1.1'
+    //NavigationView
+    implementation 'com.google.android.material:material:1.0.0'
+
+//    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    //권한 팝업
+    implementation 'gun0912.ted:tedpermission:2.1.1'
+    //animation
+    implementation 'com.airbnb.android:lottie:2.3.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+    //Retrofit
+    compile "com.squareup.retrofit2:retrofit:2.3.0"
+    compile "com.squareup.retrofit2:converter-gson:2.3.0"
+    compile "com.squareup.okhttp3:okhttp:3.9.1"
+    compile "com.squareup.retrofit2:converter-simplexml:2.3.0"
+
+    //GooglePlayService location
+    implementation "com.google.android.gms:play-services-location:16.0.0"
+
+    //motion layout
+//    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha4'
+
+    //need permission
+    implementation "com.github.skydoves:needs:1.0.2"
+
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+
+    implementation 'com.google.firebase:firebase-dynamic-links:16.1.8'
+
+}
+apply plugin: 'com.google.gms.google-services'
