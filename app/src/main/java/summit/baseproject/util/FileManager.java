@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import androidx.core.content.FileProvider;
+
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
 
 public class FileManager {
 
+    private static final String TAG = "FileManager";
 
     public static void openFile(Context ctx, String path, String filename ) {
 
@@ -31,7 +34,7 @@ public class FileManager {
 
             ctx.startActivity( intent );
         } catch (Exception e ){
-            e.printStackTrace();
+            Log.e( TAG, e.toString() );
         }
     }
 

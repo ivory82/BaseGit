@@ -111,7 +111,6 @@ public class WebviewActivity extends BaseActivity {
                 downloadManager.enqueue(request);
 
             } catch (Exception e) {
-                e.printStackTrace();
                 Log.e(TAG, e.toString() );
                 setPermission(new PermissionListener() {
                     @Override
@@ -142,7 +141,7 @@ public class WebviewActivity extends BaseActivity {
                     onDownloadStart( tempUri.getQueryParameter("url") );
                 }
             } catch (Exception e ){
-                e.printStackTrace();
+                Log.e( TAG, e.toString() );
             }
         }
 
@@ -265,7 +264,7 @@ public class WebviewActivity extends BaseActivity {
                         startActivity(intent);
                     }
                 } catch ( Exception e ){
-                    e.printStackTrace();
+                    Log.e( TAG, e.toString() );
                 }
 
 
@@ -333,17 +332,15 @@ public class WebviewActivity extends BaseActivity {
             downloadManager.enqueue(request);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e( TAG, e.toString() );
             ShowToast( getString( R.string.download_failed ));
             setPermission(new PermissionListener() {
                 @Override
                 public void onPermissionGranted() {
-
                 }
 
                 @Override
                 public void onPermissionDenied(ArrayList<String> arrayList) {
-
                 }
             }, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }

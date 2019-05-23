@@ -52,12 +52,14 @@ import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.gun0912.tedpermission.PermissionListener;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -481,7 +483,7 @@ public class TestActivity extends BaseActivity implements NavigationView.OnNavig
                 return buf.toString();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString() );
         }
 
         return "";
@@ -639,7 +641,9 @@ public class TestActivity extends BaseActivity implements NavigationView.OnNavig
 
         File imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                 + File.separator + imageFileName + ".jpg");
-        imageFile.createNewFile();
+        if( ! imageFile.createNewFile() ){
+            ShowToast(" 파일 생성 실패 ");
+        }
 
         return imageFile;
     }
@@ -880,9 +884,10 @@ public class TestActivity extends BaseActivity implements NavigationView.OnNavig
             stream.close();
             stream = null;
         } catch (FileNotFoundException e) {
+            Log.e( TAG, e.toString() );
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e( TAG, e.toString() );
         }
         return bmp;
     }
@@ -920,7 +925,9 @@ public class TestActivity extends BaseActivity implements NavigationView.OnNavig
 
         if (imgFile.exists()) {
             Log.d(TAG, " imgFile exists");
-            imgFile.delete();
+            if( !imgFile.delete() ){
+                Log.d(TAG, " imgFile delete fail");
+            }
         } else {
             Log.d(TAG, " imgFile not exists ");
         }
@@ -935,20 +942,13 @@ public class TestActivity extends BaseActivity implements NavigationView.OnNavig
 
         File fileCacheItem = new File(strFilePath + filename);
 
-        OutputStream out = null;
-        try {
-            fileCacheItem.createNewFile();
-            out = new FileOutputStream(fileCacheItem);
+        try( OutputStream out = new FileOutputStream(fileCacheItem)) {
+            if( !fileCacheItem.createNewFile()){
+                Log.e( TAG, "create file failed");
+            }
             bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            Log.e( TAG, e.toString() );
         }
     }
 
@@ -959,7 +959,7 @@ public class TestActivity extends BaseActivity implements NavigationView.OnNavig
                     file.getAbsolutePath(), file.getName(), null);
             this.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Log.e( TAG, e.toString() );
         }
     }
 
@@ -1006,16 +1006,11 @@ public class TestActivity extends BaseActivity implements NavigationView.OnNavig
 
             int size = (int) file.length();
             byte[] bytes = new byte[size];
-            try {
-                BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+
+            try( BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file)) ){
                 buf.read(bytes, 0, bytes.length);
-                buf.close();
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            } catch (Exception e ){
+                Log.e( TAG, e.toString() );
             }
 
             String encodingString = Base64.encodeToString(bytes, Base64.DEFAULT);
@@ -1026,7 +1021,7 @@ public class TestActivity extends BaseActivity implements NavigationView.OnNavig
             try {
                 bytePic = Base64.decode(encodingString, Base64.DEFAULT);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e( TAG, e.toString() );
             }
 
             String cvt = bytesToHex(bytePic);
@@ -1094,7 +1089,9 @@ public class TestActivity extends BaseActivity implements NavigationView.OnNavig
         if (bDelLastImgFile) {
             if (mLastPhotoFile != null) {
                 if (mLastPhotoFile.exists()) {
-                    mLastPhotoFile.delete();
+                    if( !mLastPhotoFile.delete()){
+                        Log.e( TAG, "delete file failed");
+                    }
                 }
             }
         }

@@ -12,7 +12,7 @@ import io.realm.exceptions.RealmMigrationNeededException;
 
 public class BaseApplication extends Application {
 
-    final String DB_FILE_NAME = "base.realm";
+    public static final String DB_FILE_NAME = "base.realm";
     public static Boolean DEBUG_MODE;
     @Override
     public void onCreate() {
